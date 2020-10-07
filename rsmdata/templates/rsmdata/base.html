@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <title>Bootstrap Example</title> -->
+  <title>{% block title %}Online resume creation{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+</head>
+<body>
+<div id="sidebar">
+  {% block header %}
+  <div class="header">
+    <a href="{% url 'rsmdata:home' %}" class="logo">Online Resume Creation</a>
+    <div class="header-right">
+      <a href="{% url 'rsmdata:employee_bio' %}">Create</a>
+      <a class="active" href="{% url 'rsmdata:home' %}">Home</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'rsmdata:logout' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'rsmdata:login' %}">Sign in</a>
+      <a href="{% url 'rsmdata:register' %}">Sign Up</a>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endblock %}
+</div>
+<div id = 'container_id' >
+  <div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error'%}alert-danger{% endif %} alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>{{ message }}</strong>
+      </div>
+      {% endfor %}
+  {% endif %}
+  </div>
+  {% block content %} {% endblock %}
+</div>
+
+</body>
+</html>

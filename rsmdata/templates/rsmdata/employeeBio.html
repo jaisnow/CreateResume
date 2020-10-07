@@ -1,0 +1,176 @@
+{% extends "rsmdata/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Online resume creation{% endblock %}
+{% block content %}
+<div class="container">
+	<br>
+    <form action="." method="post" class="form-horizontal">{% csrf_token %}
+        <!-- {{form}} -->
+        <div class="form-group">
+        	<label class="control-label col-sm-2" for="full_name">Full Name:</label>
+	        <div class="col-sm-6">
+	        	{{form.full_name|add_class:'form-control'}}
+	        	{{form.full_name.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="email">Email:</label>
+	        <div class="col-sm-6">
+	        	{{form.email|add_class:'form-control'}}
+	        	{{form.email.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="phone_no">Phone Number:</label>
+	        <div class="col-sm-6">
+	        	{{form.phone_no|add_class:'form-control'}}
+	        	{{form.phone_no.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="address">Address:</label>
+	        <div class="col-sm-6">
+	        	{{form.address|add_class:'form-control'}}
+	        	{{form.address.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="skills">Skills:</label>
+	        <div class="col-sm-6">
+	        	{{form.skills|add_class:'form-control'}}
+	        	{{form.skills.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="pincode">Pincode:</label>
+	        <div class="col-sm-6">
+	        	{{form.pincode|add_class:'form-control'}}
+	        	{{form.pincode.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="dob">Date for Birth:</label>
+	        <div class="col-sm-6">
+	        	{{form.dob|add_class:'form-control'}}
+	        	{{form.dob.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="gender">Gender:</label>
+	        <div class="col-sm-6">
+	        	{{form.gender|add_class:'form-control'}}
+	        	{{form.gender.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+        	<label class="control-label col-sm-2" for="marital_status">Marital Status:</label>
+	        <div class="col-sm-6">
+	        	{{form.marital_status|add_class:'form-control'}}
+	        	{{form.marital_status.errors}}
+	        </div>
+    	</div>
+    	<div class="form-group">
+    		<label class="control-label col-sm-2" for="marital_status">Education:</label>
+	    	<div class="col-sm-6">
+	    		<b>
+			    <a data-toggle="modal" data-target="#exampleModal">Add Education</a>
+			    </b>
+			</div>
+		</div>
+    	<div class="form-group">        
+	      <div class="col-sm-offset-2 col-sm-10"> 
+	        <button type="submit" class="btn btn-default">Submit</button>
+	      </div>
+	    </div>
+    	<!-- <div class="form-group">
+		  <input class="" type="radio" name="exampleRadios" id="exampleRadios1" value="single" checked>
+		  <label class="" for="exampleRadios1">
+		    Single
+		  </label>
+		  <input class="" type="radio" name="exampleRadios" id="exampleRadios2" value="married">
+		  <label class="" for="exampleRadios2">
+		    Married
+		  </label>
+		</div>	 -->
+        <!-- <table border="1">
+		    {{ form }}
+		</table> -->
+    </form>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Education</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'rsmdata:education' %}">{% csrf_token %}
+          <input type="hidden" name="eduction_id" value='{% if True %} {{edu_id}} {% else %} 1 {% endif %}'>	
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Education:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+            {{eduform.education|add_class:'form-control'}}
+            {{eduform.education.errors}}
+          </div>
+          <div class="form-group">
+          	   <div class="form-group col-md-6">
+	            <label for="recipient-name" class="col-form-label">Board:</label>
+	            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+	            {{eduform.board|add_class:'form-control'}}
+	            {{eduform.board.errors}}
+	          	</div>
+	          <div class="form-group col-md-6">
+	            <label for="recipient-name" class="col-form-label">Passing out year:</label>
+	            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+	            {{eduform.passing_out_year|add_class:'form-control'}}
+	            {{eduform.passing_out_year.errors}}
+	          </div>
+	      </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">University:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+            {{eduform.university|add_class:'form-control'}}
+            {{eduform.university.errors}}
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Course:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+            {{eduform.course|add_class:'form-control'}}
+            {{eduform.course.errors}}
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Specification:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+            {{eduform.specification|add_class:'form-control'}}
+            {{eduform.specification.errors}}
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Percent:</label>
+            <!-- <input type="text" class="form-control" id="recipient-name"> -->
+            {{eduform.percent|add_class:'form-control'}}
+            {{eduform.percent.errors}}
+          </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Save</button>
+	      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<script type="text/javascript">
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  // var modal = $(this)
+  // modal.find('.modal-title').text('New message to ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+})
+</script>

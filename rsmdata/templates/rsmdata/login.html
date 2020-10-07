@@ -1,0 +1,55 @@
+{% extends "rsmdata/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Online resume creation{% endblock %}
+{% block content %}
+
+<div class="container">
+  <!-- <form class="form-horizontal" cc>{% csrf_token %}
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Email:</label>
+      <div class="col-sm-6">
+        {{form.email|add_class:'form-control'}}
+        {{form.email.errors}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Password:</label>
+      <div class="col-sm-6">
+        {{form.password|add_class:'form-control'}}
+        {{form.passwords.errors}}
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10"> 
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form> -->
+  <div id="logreg-forms">
+    <form class="form-signin" action="." method="post">{% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+        <div class="social-login">
+            <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
+            <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
+        </div>
+        <p style="text-align:center"> OR  </p>
+        {{form.email|add_class:'form-control'}}
+        {{form.password|add_class:'form-control'}}
+        <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+        <a href="{% url 'rsmdata:forget_pwd' %}" id="forgot_pswd">Forgot password?</a>
+        <hr>
+        <!-- <p>Don't have an account!</p>  -->
+        <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</button>
+        <a href="{% url 'rsmdata:register' %}" id="id_redirect_on_signup"></a>
+           
+    </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#btn-signup").click(function() {
+        //Do stuff when clicked
+        $('#id_redirect_on_signup')[0].click();
+    });
+  });
+</script>
+{% endblock %}

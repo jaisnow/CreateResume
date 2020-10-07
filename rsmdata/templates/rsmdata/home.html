@@ -1,0 +1,11 @@
+{% extends "rsmdata/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Online resume creation{% endblock %}
+{% block content %}
+<div class="container">
+	<p> <h1 align="center"> Welcome to Resume creation home screen  </h1></p>
+	{% if request.user.is_authenticated %}
+	<h1> login user : {{request.user}} is authenticated = {{request.user.is_authenticated}}</h1>
+	{% endif %}
+</div>
+{% endblock %}
